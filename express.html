@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/site.ico">
+    <meta name="keywords" content="node &amp;amp; express">
+    <meta name="description">
+    <title>node &amp;amp; express - cheatsheet</title>
+    <link rel="stylesheet" href="/static/css/cards-9f47e0537e.css">
+  </head>
+  <body>
+    <div class="page-header"><a class="btn pull-left toggle-search" href="/" title="search"><i class="fa fa-search"></i></a><a class="btn pull-left edit" href="https://github.com/MwumLi/simple-cheatsheets/blob/master/src/express.md" target="_blank">在 Github 上编辑此页</a>
+    </div>
+    <div class="page-wrapper"><h1>node &amp; express</h1><div class="card-container"><div class="h2-block"><h2>http协议</h2><pre><code>200 OK  客户端请求成功
+
+400 Bad Request  客户端请求有语法错误，不能被服务器所理解
+
+401 Unauthorized 请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用
+
+403 Forbidden 服务器收到请求，但是拒绝提供服务
+
+404 Not Found 请求资源不存在，eg：输入了错误的URL
+
+500 Internal Server Error 服务器发生不可预期的错误
+
+503 Server Unavailable 服务器当前不能处理客户端的请求，一段时间后，可能恢复正常
+</code></pre></div><div class="h2-block"><h2>npm</h2><pre><code>npm run 根据package.json中的scripts配置项来运行脚本
+
+npm config set registry 仓库地址
+
+npm init
+
+npm init -y
+
+npm install --save
+
+npm install -S
+
+npm uninstall --save
+
+npm install --save-dev
+
+npm install -D
+
+npm install --publish
+
+npm uninstall --save-dev
+
+npm remove --save-dev
+</code></pre></div><div class="h2-block"><h2>yarn</h2><pre><code>yarn init
+</code></pre></div><div class="h2-block"><h2>req对象(request 请求)</h2><pre><code>req.url
+req.method
+</code></pre></div><div class="h2-block"><h2>res对象(response 响应)</h2><pre><code>res.end
+
+res.writeHeader(200,{&#39;Content-Type&#39;:&#39;text/html;charset=utf-8&#39;})
+</code></pre></div><div class="h2-block"><h2>express快速入门</h2><ol>
+<li>创建一个目录demo</li>
+<li>进入demo目录</li>
+<li>执行cnpm init -y</li>
+<li>执行cnpm i -S express</li>
+<li>创建一个app.js文件，代码如下<pre><code class="lang-javascript">const express = require(&#39;express&#39;)
+const app = express()
+app.get(&#39;/&#39;, (req, res) =&gt; res.send(&#39;Hello World!&#39;))
+app.listen(3000, () =&gt; console.log(&#39;服务器开启成功，正在监听3000端口&#39;))
+</code></pre>
+</li>
+</ol>
+</div><div class="h2-block"><h2>express脚手架</h2><p>安装脚手架</p>
+<pre><code>cnpm i express-generator -g
+</code></pre><p>创建一个项目</p>
+<pre><code>express --view=ejs myapp
+</code></pre><p>开启项目</p>
+<pre><code>set DEBUG=myapp:* &amp; npm start(注意事项：只能用cmd,不能用power shell)
+</code></pre></div></div></div>
+  </body>
+</html>

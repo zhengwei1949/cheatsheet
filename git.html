@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/site.ico">
+    <meta name="keywords" content="git111">
+    <meta name="description" content="git 是一个分布式版本管理系统, 也是一个命令行工具, 三大操作系统都支持(Mac, Linux, Windows)">
+    <title>git111 - cheatsheet</title>
+    <link rel="stylesheet" href="/static/css/cards-9f47e0537e.css">
+  </head>
+  <body>
+    <div class="page-header"><a class="btn pull-left toggle-search" href="/" title="search"><i class="fa fa-search"></i></a><a class="btn pull-left edit" href="https://github.com/MwumLi/simple-cheatsheets/blob/master/src/git.md" target="_blank">在 Github 上编辑此页</a>
+    </div>
+    <div class="page-wrapper"><h1>git111</h1><p>git 是一个分布式版本管理系统, 也是一个命令行工具, 三大操作系统都支持(Mac, Linux, Windows)</p>
+<p>没有使用 <code>git add</code> 纳入版本管理的文件都属于未追踪文件</p>
+<p>为避免误操作把某些未追踪文件纳入版本管理, 我们经常把它们忽略掉, 即在 <code>.gitignore</code> 忽略某些文件, 那些被忽略的文件可以简称忽略文件</p>
+<p>在 Git 中，用 <code>HEAD</code> 表示当前提交即最新一个提交,上一个提交就是 <code>HEAD^</code>，上上一个提交就是 <code>HEAD^^</code>，当然往上100个提交写100个 <code>^</code> 比较容易数不过来，所以写成 <code>HEAD~100</code></p>
+<div class="card-container"><div class="h2-block"><h2>初始化仓库</h2><p>初始化仓库:</p>
+<pre><code>git init
+</code></pre><p>初始化裸仓库:</p>
+<pre><code>git init --bare
+</code></pre><p>克隆仓库:</p>
+<pre><code>git clone &lt;git-repo&gt;
+</code></pre></div><div class="h2-block"><h2>配置</h2><p>编辑配置文件:</p>
+<pre><code>git config [--global] -e
+</code></pre><p>列出配置信息:</p>
+<pre><code>git config -l
+</code></pre><p>获取相应的配置:</p>
+<pre><code>git config --get core.editor
+</code></pre><p>设置 git 的编辑器是 vim:</p>
+<pre><code>git config --global core.editor vim
+</code></pre><p>配置用户邮箱:</p>
+<pre><code>git config --global user.email &lt;mail&gt;
+</code></pre><p>配置用户名:</p>
+<pre><code>git config --global user.name &lt;name&gt;
+</code></pre><p>输出彩色信息:</p>
+<pre><code>git config color.ui true
+</code></pre><p>设置文件名大小写敏感:</p>
+<pre><code>git config core.ignoreCase false
+</code></pre><p>设置推送策略为 simple:</p>
+<pre><code>git config push.default simple
+</code></pre><p>设置命令别名:</p>
+<pre><code>git config --global alias.co checkout
+</code></pre><p>允许 git clean 不需要 <code>-f</code>:</p>
+<pre><code>git config --global clean.requireForce false
+</code></pre></div><div class="h2-block"><h2>忽略文件</h2><p>添加本项目的忽略文件:</p>
+<pre><code>vim .gitignore
+</code></pre><p>添加本项目的忽略文件并不把此文件纳入版本管理:</p>
+<pre><code>vim .git/info/excludes
+</code></pre><p>设置全局忽略文件:</p>
+<pre><code>git config --global core.excludesfile ~/.gitignore
+</code></pre></div><div class="h2-block"><h2>添加删除移动文件</h2><p>添加所有文件到暂存区，包括未追踪文件:</p>
+<pre><code>git add -A
+</code></pre><p>更新暂存区文件:</p>
+<pre><code>git add -u
+</code></pre><p>交互式添加文件到暂存区:</p>
+<pre><code>git add -p
+</code></pre><p>工作区与暂存区删除文件:</p>
+<pre><code>git rm &lt;file&gt;
+</code></pre><p>仅暂存区删除文件:</p>
+<pre><code>git rm --cached &lt;file&gt;
+</code></pre><p>重命名暂存区文件:</p>
+<pre><code>git mv &lt;file&gt; &lt;newfile&gt;
+</code></pre></div><div class="h2-block"><h2>工作区状态</h2><p>查看工作区的信息:</p>
+<pre><code>git status
+</code></pre><p>查看工作区信息并显示分支及追踪信息:</p>
+<pre><code>git status -sb
+</code></pre></div><div class="h2-block"><h2>显示更改</h2><p>显示暂存区与工作区的不同:</p>
+<pre><code>git diff
+</code></pre><p>显示本地仓库与暂存区的不同:</p>
+<pre><code>git diff --cached
+</code></pre><p>显示工作区与本地仓库的不同:</p>
+<pre><code>git diff HEAD
+</code></pre><p>仅显示改变的文件:</p>
+<pre><code>git diff --name-only
+</code></pre><p>比较两次提交的差异:</p>
+<pre><code>git diff &lt;commit&gt; &lt;commit&gt;
+</code></pre><p>显示某次 commit 所做的更改:</p>
+<pre><code>git show &lt;commit&gt;
+</code></pre><p>显示某个文件的详细修改记录:</p>
+<pre><code>git log -p &lt;file&gt;
+</code></pre><p>图形化显示分支合并:</p>
+<pre><code>git log --oneline --graph --decorate
+</code></pre></div><div class="h2-block"><h2>储藏与恢复</h2><p>储藏(stash)工作区相对暂存区更改的文件:</p>
+<pre><code>git stash
+</code></pre><p>储藏文件并添加描述信息:</p>
+<pre><code>git stash save &lt;message&gt;
+</code></pre><p>恢复最后一次储藏的文件:</p>
+<pre><code>git stash apply
+</code></pre><p>恢复最后一次储藏的文件并删除此次储存记录:</p>
+<pre><code>git stash pop
+</code></pre><p>查看储藏列表:</p>
+<pre><code>git stash list
+</code></pre></div><div class="h2-block"><h2>清理未追踪文件</h2><p>清除未追踪且未忽略的文件:</p>
+<pre><code>git clean
+</code></pre><p>列出未追踪且未忽略的文件:</p>
+<pre><code>git clean -n
+</code></pre><p>清除未追踪且未忽略的目录:</p>
+<pre><code>git clean -d
+</code></pre><p>列出未追踪且未忽略的文件和目录:</p>
+<pre><code>git clean -nd
+</code></pre><p>清除未追踪且未忽略的文件和目录:</p>
+<pre><code>git clean -d
+</code></pre><p>清除未追踪的忽略文件:</p>
+<pre><code>git clean -X
+</code></pre><p>强制执行清除操作(<code>clean.requireForce</code> 为 <code>true</code> 阻止清除操作):</p>
+<pre><code>git clean -f
+</code></pre></div><div class="h2-block"><h2>恢复工作区</h2><p>重置工作区某文件:</p>
+<pre><code>git checkout -- &lt;file&gt;
+</code></pre><p>重置工作区:</p>
+<pre><code>git checkout .
+</code></pre></div><div class="h2-block"><h2>回退版本</h2><p>重置暂存区:</p>
+<pre><code>git reset
+# 或
+git reset HEAD
+# 或
+git reset --mixed
+</code></pre><p>重置工作区和暂存区:</p>
+<pre><code>git reset --hard
+</code></pre><p>回退本分支到某次提交, 重置暂存区:</p>
+<pre><code>git reset --mixed &lt;commit-ish&gt;
+</code></pre><p>回退本分支到某次提交, 重置工作目录和暂存区:</p>
+<pre><code>git reset --hard &lt;commit-ish&gt;
+</code></pre><p>回退本分支到某次提交:</p>
+<pre><code>git reset --soft &lt;commit-ish&gt;
+</code></pre><p>回退到倒数第n+1个提交:</p>
+<pre><code>git reset --soft HEAD~n
+</code></pre><p>反向恢复一个提交并生成新的提交:</p>
+<pre><code>git revert &lt;commit&gt;
+</code></pre></div><div class="h2-block"><h2>代码回滚</h2><blockquote>
+<p><code>revert</code> 操作不会删除旧的提交, 而是撤销指定提交的更改作为一个新的提交</p>
+</blockquote>
+<p>撤销最新 n 个提交的更改, 然后增加为一个新的提交:</p>
+<pre><code>git revert HEAD~n
+</code></pre><p>撤销一个指定的提交的更改, 然后增加未一个新的提交:</p>
+<pre><code>git revert &lt;commit&gt;
+</code></pre></div><div class="h2-block"><h2>分支</h2><p>列出本地分支:</p>
+<pre><code>git branch
+</code></pre><p>列出本地分支与追踪关系:</p>
+<pre><code>git branch -vv
+</code></pre><p>列出远程分支:</p>
+<pre><code>git branch -r
+</code></pre><p>列出所有分支:</p>
+<pre><code>git branch -a
+</code></pre><p>更改分支名字:</p>
+<pre><code>git branch -m &lt;newbranch&gt;
+</code></pre><p>设置追踪分支:</p>
+<pre><code>git branch -u &lt;upstream&gt;
+</code></pre></div><div class="h2-block"><h2>创建分支</h2><p>创建分支:</p>
+<pre><code>git branch &lt;branch&gt;
+</code></pre><p>创建分支并切换到新分支:</p>
+<pre><code>git checkout -b &lt;branch&gt;
+</code></pre><p>指定提交创建一个游离分支:</p>
+<pre><code>git checkout &lt;commit&gt;
+</code></pre><p>指定提交创建分支并切换到新分支:</p>
+<pre><code>git checkout -b &lt;branch&gt; &lt;commit&gt;
+</code></pre><p>创建一个没有提交历史的分支并切换到新分支:</p>
+<pre><code>git checkout --orphan &lt;branch&gt;
+</code></pre><p>创建一个空分支:</p>
+<pre><code># 创建一个无提交历史分支
+git checkout --orphan &lt;branch&gt;
+# 删除上一个分支留下的文件
+git rm -rf .
+# 需要提交一些东西,新分支才能看到
+touch README.md &amp;&amp; git add . &amp;&amp; git commit -m &#39;init README.md&#39;
+</code></pre></div><div class="h2-block"><h2>删除分支</h2><p>删除已被合并的分支:</p>
+<pre><code>git branch -d &lt;branch&gt;
+</code></pre><p>强制删除未被合并的分支:</p>
+<pre><code>git branch -D &lt;branch&gt;
+</code></pre></div><div class="h2-block"><h2>合并分支</h2><p>合并分支 A 到当前分支:</p>
+<pre><code>git merge A
+</code></pre><p>合并多个分支到当前分支:</p>
+<pre><code>git merge A B
+</code></pre></div><div class="h2-block"><h2>切换分支</h2><p>切换分支:</p>
+<pre><code>git checkout &lt;branch&gt;
+</code></pre><p>切换到最近一次分支:</p>
+<pre><code>git checkout -
+</code></pre></div><div class="h2-block"><h2>远程仓库</h2><p>添加远程仓库并命名为 origin:</p>
+<pre><code>git remote add origin &lt;git-repo&gt;
+</code></pre><p>删除名为 origin 的远程仓库地址:</p>
+<pre><code>git remote remote origin
+</code></pre><p>重命名远程仓库简称:</p>
+<pre><code>git remote origin origin1
+</code></pre><p>修改远程仓库的地址:</p>
+<pre><code>git remote set-url origin &lt;git-repo&gt;
+</code></pre><p>列出所有的远程仓库:</p>
+<pre><code>git remote -v
+</code></pre><p>列出远程仓库 origin 的详细信息:</p>
+<pre><code>git remote show origin
+</code></pre></div><div class="h2-block"><h2>推送与拉取</h2><p>设置默认推送策略为 simple:</p>
+<pre><code>git config push.default simple
+</code></pre><p>推送 master 到远程仓库 origin 的 master:</p>
+<pre><code>git push origin master
+</code></pre><p>推送本地 A 分支到远程仓库 origin 的 B 分支:</p>
+<pre><code>git push origin A:B
+</code></pre><p>删除远程仓库 origin 的 B 分支:</p>
+<pre><code>git push origin :B
+</code></pre><p>推送到远程仓库并建立追踪关系:</p>
+<pre><code>git push -u origin master
+</code></pre><p>从远程仓库拉取文件:</p>
+<pre><code>git pull origin master
+</code></pre></div><div class="h2-block"><h2>提交</h2><p>提交:</p>
+<pre><code>git commit -m &lt;message&gt;
+</code></pre><p>追加提交重置提交信息:</p>
+<pre><code>git commit --amend -m &lt;message&gt;
+</code></pre><p>重置作者:</p>
+<pre><code>git commit --amend --author=&lt;mail&gt;
+</code></pre><p>允许空提交:</p>
+<pre><code>git commit --allow-empty
+</code></pre><p>提交时跳过 pre-commit hook:</p>
+<pre><code>git commit -n
+</code></pre></div><div class="h2-block"><h2>日志</h2><p>显示提交日志:</p>
+<pre><code>git log
+</code></pre><p>显示某文件的提交日志:</p>
+<pre><code>git log -p &lt;file&gt;
+</code></pre><p>以图表形式显示提交日志:</p>
+<pre><code>git log --graph --all --oneline --decorate
+</code></pre><p>显示每次提交的对象信息:</p>
+<pre><code>git log --pretty=raw
+</code></pre><p>显示某个时间段的提交信息:</p>
+<pre><code>git log --since &#39;2 days ago&#39;
+</code></pre><p>显示指定作者的提交信息:</p>
+<pre><code>git log --author=&lt;author&gt;
+</code></pre><p>根据提交信息中的关键字查找:</p>
+<pre><code>git log --grep=&lt;keyword&gt;
+</code></pre><p>列出二者特有的提交:</p>
+<pre><code>git log master...develop
+</code></pre><p>列出 branch 有而 branch2 没有的提交:</p>
+<pre><code>git log branch2..branch
+</code></pre><p>仅显示 merge commit:</p>
+<pre><code>git log --merges
+</code></pre><p>统计每个作者的提交情况:</p>
+<pre><code>git shortlog
+</code></pre><p>统计每个作者的提交个数:</p>
+<pre><code>git shortlog -sn
+</code></pre></div><div class="h2-block"><h2>标签</h2><p>列出所有标签:</p>
+<pre><code>git tag -l
+</code></pre><p>列出所有标签并显示标签信息:</p>
+<pre><code>git tag -ln
+</code></pre><p>添加一个轻量标签:</p>
+<pre><code>git tag v1.0
+</code></pre><p>添加一个附注标签:</p>
+<pre><code>git tag -a v1.0.0 -m &lt;message&gt;
+</code></pre><p>在某个 commit 上添加一个标签:</p>
+<pre><code>git tag v0.9.0 &lt;commit&gt;
+</code></pre><p>删除一个标签:</p>
+<pre><code>git tag -d v1.0.0
+</code></pre><p>删除远程仓库的 tag:</p>
+<pre><code>git push origin :refs/tags/&lt;tagname&gt;
+</code></pre><p>查看某个标签信息:</p>
+<pre><code>git show v1.0.0
+</code></pre><p>推送 tag <code>v1.0</code> 到远程仓库:</p>
+<pre><code>git push origin v1.0
+</code></pre><p>推送所有标签到远程仓库:</p>
+<pre><code>git push --tags
+</code></pre><p>以 tag 的提交为基础创建一个新分支:</p>
+<pre><code>git checkout -b branch_v1.0 v1.0
+</code></pre><p>取得两个 tag 之间的 commmit:</p>
+<pre><code>git log --pretty=oneline tagA..tagB
+</code></pre></div><div class="h2-block"><h2>追责</h2><p>显示一个文件每一行最后一次提交情况:</p>
+<pre><code>git blame &lt;file&gt;
+</code></pre><p>显示指定文件第<code>n,m</code>行最后一次提交:</p>
+<pre><code>git blame -L n,m &lt;file&gt;
+</code></pre><p>显示指定文件第n行开始的m行最后一次提交:</p>
+<pre><code>git blame -L n,+m &lt;file&gt;
+</code></pre><p>显示指定文件第n行结束的前m行最后一次提交:</p>
+<pre><code>git blame -L n,-m &lt;file&gt;
+</code></pre></div><div class="h2-block"><h2>查找</h2><p>显示已追踪文件中包含关键字的行:</p>
+<pre><code>git grep hello
+</code></pre><p>显示已追踪文件中包含关键字的行, 并显示行号:</p>
+<pre><code>git grep -n hello
+</code></pre></div><div class="h2-block"><h2>打包</h2><p>打包:</p>
+<pre><code>git archive -o arch.zip HEAD
+</code></pre></div></div></div>
+  </body>
+</html>
